@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Psychic-Game</title>
+</head>
+<body>
+
+	<h1>The Psychic-Game</h1>
+	<h2>Guess what letter I'm thinking of</h2>
+
+	<div>wins: <span id="wins"></span></div>
+	<div>loses <span id="loses"></span></div>
+	<div>guesses Left: <span id="guesses"></span></div>
+	<div>your guesses so far: <span id="soFar"></span></div>
+	<div>answer: <span id="answer"></span></div>
+	
+	<script type="text/javascript">
+
+	var wins = 0;
+	var loses = 0;
+	var maxTries = 9;
+	var tries = 0;
+	var turn = 0;
+
+	var letters = ["h","f","t","e","m"];
+
+	// this is an event handler the calls keyPressed when
+	//  the user presses a key while the document has focus.
+	document.addEventListener("keydown", keyPressed, false);
+
+	// this gets called whenever someone calls this function.
+	function setValues(){
+		// This search for an html tag with an id of wins 
+		//  and sets its content to the value of variabvle wins
+		document.getElementById("wins").innerHTML = wins;
+		document.getElementById("loses").innerHTML = loses;
+		document.getElementById("guesses").innerHTML = maxTries-tries;
+		document.getElementById("soFar").innerHTML = tries;
+		document.getElementById("answer").innerHTML = letters[turn];
+	}
+
+	// this gets called when you press a key when the page has focus
+	function keyPressed(e){
+		console.log(e.key);
+		if (e.key==letters[turn]){
+			wins++; 
+			tries=0;
+			turn++;
+		}
+		else {
+			tries++;
+			if (tries==maxTries){
+				loses++;
+				tries=0;
+				turn++;
+			}
+		}
+		if (turn>4){
+			turn=0;
+		}
+		setValues();
+		
+	}
+
+	// this gets called when the pages loads
+	setValues();
+
+
+		
+
+
+	</script>
+
+</body>
+</html>
+
